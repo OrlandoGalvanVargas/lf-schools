@@ -12,5 +12,5 @@ const mockTimeZones = [
 ];
 
 export const TimeZoneClient = {
-  getTimeZones: () => (env.useMock ? Promise.resolve({ data: mockTimeZones }) : api.get(endpoint)),
+  getTimeZones: () => (!env.useMock ? Promise.resolve({ data: mockTimeZones }) : api.get(endpoint)),
 };

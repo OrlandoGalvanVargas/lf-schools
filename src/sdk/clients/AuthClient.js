@@ -50,7 +50,7 @@ const request = async (url, options = {}) => {
 
 export const AuthClient = {
   login: data =>
-    env.useMock
+    !env.useMock
       ? LoginMock(data)
       : request('/auth/login', {
           method: 'POST',

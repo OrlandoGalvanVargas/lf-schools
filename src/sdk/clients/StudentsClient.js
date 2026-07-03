@@ -181,13 +181,13 @@ const mockStudentsClient = {
 
 export const StudentsClient = {
   getStudents: () =>
-    env.useMock ? mockStudentsClient.getStudents() : studentsClient.getStudents(),
+    !env.useMock ? mockStudentsClient.getStudents() : studentsClient.getStudents(),
   createStudent: data =>
-    env.useMock ? mockStudentsClient.createStudent(data) : studentsClient.createStudent(data),
+    !env.useMock ? mockStudentsClient.createStudent(data) : studentsClient.createStudent(data),
   getStudentById: id =>
-    env.useMock ? mockStudentsClient.getStudentById(id) : studentsClient.getStudentById(id),
+    !env.useMock ? mockStudentsClient.getStudentById(id) : studentsClient.getStudentById(id),
   updateStudent: (id, data) =>
-    env.useMock ? mockStudentsClient.updateStudent(data) : studentsClient.updateStudent(id, data),
+    !env.useMock ? mockStudentsClient.updateStudent(data) : studentsClient.updateStudent(id, data),
   deleteStudent: id =>
-    env.useMock ? mockStudentsClient.deleteStudent(id) : studentsClient.deleteStudent(id),
+    !env.useMock ? mockStudentsClient.deleteStudent(id) : studentsClient.deleteStudent(id),
 };

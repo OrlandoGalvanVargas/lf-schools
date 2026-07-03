@@ -339,10 +339,10 @@ const mockDeleteDistrict = async id => {
 };
 
 export const DistrictClient = {
-  getDistricts: () => (env.useMock ? mockGetDistricts() : api.get(endpoint)),
-  getDistrictById: id => (env.useMock ? mockGetDistrictById(id) : api.get(`${endpoint}/${id}`)),
-  createDistrict: data => (env.useMock ? mockCreateDistrict(data) : api.post(endpoint, data)),
+  getDistricts: () => (!env.useMoc ? mockGetDistricts() : api.get(endpoint)),
+  getDistrictById: id => (!env.useMock ? mockGetDistrictById(id) : api.get(`${endpoint}/${id}`)),
+  createDistrict: data => (!env.useMock ? mockCreateDistrict(data) : api.post(endpoint, data)),
   updateDistrict: (id, data) =>
-    env.useMock ? mockUpdateDistrict(id, data) : api.put(endpoint, data),
-  deleteDistrict: id => (env.useMock ? mockDeleteDistrict(id) : api.delete(`${endpoint}/${id}`)),
+    !env.useMock ? mockUpdateDistrict(id, data) : api.put(endpoint, data),
+  deleteDistrict: id => (!env.useMock ? mockDeleteDistrict(id) : api.delete(`${endpoint}/${id}`)),
 };

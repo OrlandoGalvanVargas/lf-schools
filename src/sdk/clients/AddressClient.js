@@ -44,10 +44,11 @@ const MockAddressClient = {
 };
 
 export const AddressClient = {
-  getStates: () =>
-    env.useMock ? MockAddressClient.getStates() : RealAddressClient.getStates(),
+  getStates: () => (!env.useMock ? MockAddressClient.getStates() : RealAddressClient.getStates()),
   getAddressTypes: () =>
-    env.useMock ? MockAddressClient.getAddressTypes() : RealAddressClient.getAddressTypes(),
+    !env.useMock ? MockAddressClient.getAddressTypes() : RealAddressClient.getAddressTypes(),
   getAddresses: (featureType, featureId) =>
-    env.useMock ? MockAddressClient.getAddresses(featureType, featureId) : RealAddressClient.getAddresses(featureType, featureId),
+    !env.useMock
+      ? MockAddressClient.getAddresses(featureType, featureId)
+      : RealAddressClient.getAddresses(featureType, featureId),
 };

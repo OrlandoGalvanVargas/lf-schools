@@ -40,11 +40,11 @@ const mockRelationshipTypesClient = {
 
 export const RelationshipTypesClient = {
   getRelationshipTypes: () =>
-    env.useMock
+    !env.useMock
       ? mockRelationshipTypesClient.getRelationshipTypes()
       : relationshipTypesClient.getRelationshipTypes(),
   getRelationshipTypeById: id =>
-    env.useMock
+    !env.useMock
       ? mockRelationshipTypesClient.getRelationshipTypeById(id)
       : relationshipTypesClient.getRelationshipTypeById(id),
 };
