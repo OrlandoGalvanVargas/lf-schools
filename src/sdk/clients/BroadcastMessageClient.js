@@ -5,69 +5,72 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 const RandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 const mockData = {
-  "broadcastMessageTypes": [
-    { "id": 1, "name": "Emergency Alert" },
-    { "id": 2, "name": "General Announcement" },
-    { "id": 3, "name": "Event Reminder" }
+  broadcastMessageTypes: [
+    { id: 1, name: 'Emergency Alert' },
+    { id: 2, name: 'General Announcement' },
+    { id: 3, name: 'Event Reminder' },
   ],
-  "broadcastMessagePriorities": [
-    { "id": 1, "name": "High" },
-    { "id": 2, "name": "Medium" },
-    { "id": 3, "name": "Low" }
+  broadcastMessagePriorities: [
+    { id: 1, name: 'High' },
+    { id: 2, name: 'Medium' },
+    { id: 3, name: 'Low' },
   ],
-  "broadcastMessageEnvironmentTypes": [
-    { "id": 1, "name": "PA System" },
-    { "id": 2, "name": "Phone Line" }
+  broadcastMessageEnvironmentTypes: [
+    { id: 1, name: 'PA System' },
+    { id: 2, name: 'Phone Line' },
   ],
-  "broadcastMessages": [
+  broadcastMessages: [
     {
-      "id": 1,
-      "color": "#FF0000",
-      "isFavorite": true,
-      "description": "Emergency lockdown drill scheduled",
-      "textToVoice": "An emergency lockdown drill is scheduled for tomorrow at 10 AM",
-      "textToVoiceGender": "Female",
-      "isDefault": false,
-      "isRecordBroadcast": false,
-      "callSid": null,
-      "smsNotificationText": "Lockdown drill tomorrow at 10 AM",
-      "emailNotificationText": "Dear parents, an emergency lockdown drill is scheduled for tomorrow at 10 AM. No action is needed from your side.",
-      "audioFile": null,
-      "recordingId": null,
-      "recordingUrl": null,
-      "durationSeconds": 0,
-      "broadcastMessageType": { "id": 1, "name": "Emergency Alert" },
-      "broadcastMessageEnvironmentType": { "id": 1, "name": "PA System" },
-      "broadcastMessagePriority": { "id": 1, "name": "High" },
-      "school": { "id": 70007, "name": "Mountainview Middle School" }
+      id: 1,
+      color: '#FF0000',
+      isFavorite: true,
+      description: 'Emergency lockdown drill scheduled',
+      textToVoice: 'An emergency lockdown drill is scheduled for tomorrow at 10 AM',
+      textToVoiceGender: 'Female',
+      isDefault: false,
+      isRecordBroadcast: false,
+      callSid: null,
+      smsNotificationText: 'Lockdown drill tomorrow at 10 AM',
+      emailNotificationText:
+        'Dear parents, an emergency lockdown drill is scheduled for tomorrow at 10 AM. No action is needed from your side.',
+      audioFile: null,
+      recordingId: null,
+      recordingUrl: null,
+      durationSeconds: 0,
+      broadcastMessageType: { id: 1, name: 'Emergency Alert' },
+      broadcastMessageEnvironmentType: { id: 1, name: 'PA System' },
+      broadcastMessagePriority: { id: 1, name: 'High' },
+      school: { id: 70007, name: 'Mountainview Middle School' },
     },
     {
-      "id": 3,
-      "color": "#00AA00",
-      "isFavorite": true,
-      "description": "Recordatorio de reunión de padres editado",
-      "textToVoice": null,
-      "textToVoiceGender": null,
-      "isDefault": true,
-      "isRecordBroadcast": true,
-      "callSid": null,
-      "smsNotificationText": "Reunión de padres HOY a las 5 PM",
-      "emailNotificationText": "Le recordamos que tiene una reunión de padres programada para hoy a las 5 PM",
-      "audioFile": null,
-      "recordingId": "broadcast-messages/hxqjxwopohrbo8n15gvb",
-      "recordingUrl": "https://res.cloudinary.com/dybiwrcn3/video/upload/v1773940946/broadcast-messages/hxqjxwopohrbo8n15gvb.mp3",
-      "durationSeconds": 20,
-      "broadcastMessageType": { "id": 1, "name": "Emergency Alert" },
-      "broadcastMessageEnvironmentType": { "id": 1, "name": "PA System" },
-      "broadcastMessagePriority": { "id": 3, "name": "Low" },
-      "school": { "id": 3, "name": "Hogwarts School of Witchcraft and Wizardry" }
-    }
-  ]
+      id: 3,
+      color: '#00AA00',
+      isFavorite: true,
+      description: 'Recordatorio de reunión de padres editado',
+      textToVoice: null,
+      textToVoiceGender: null,
+      isDefault: true,
+      isRecordBroadcast: true,
+      callSid: null,
+      smsNotificationText: 'Reunión de padres HOY a las 5 PM',
+      emailNotificationText:
+        'Le recordamos que tiene una reunión de padres programada para hoy a las 5 PM',
+      audioFile: null,
+      recordingId: 'broadcast-messages/hxqjxwopohrbo8n15gvb',
+      recordingUrl:
+        'https://res.cloudinary.com/dybiwrcn3/video/upload/v1773940946/broadcast-messages/hxqjxwopohrbo8n15gvb.mp3',
+      durationSeconds: 20,
+      broadcastMessageType: { id: 1, name: 'Emergency Alert' },
+      broadcastMessageEnvironmentType: { id: 1, name: 'PA System' },
+      broadcastMessagePriority: { id: 3, name: 'Low' },
+      school: { id: 3, name: 'Hogwarts School of Witchcraft and Wizardry' },
+    },
+  ],
 };
 
 let nextId = 9;
 
-const enrichMessage = (data) => {
+const enrichMessage = data => {
   const typeId = data.broadcastMessageTypeId || data.broadcastMessageType?.id;
   const envId = data.broadcastMessageEnvironmentTypeId || data.broadcastMessageEnvironmentType?.id;
   const priorityId = data.broadcastMessagePriorityId || data.broadcastMessagePriority?.id;
@@ -89,26 +92,36 @@ const enrichMessage = (data) => {
     recordingId: data.recordingId ?? null,
     recordingUrl: data.recordingUrl ?? null,
     durationSeconds: data.durationSeconds ?? 0,
-    broadcastMessageType: typeId ? {
-      id: typeId,
-      name: mockData.broadcastMessageTypes.find(t => t.id === typeId)?.name || 'Unknown'
-    } : null,
-    broadcastMessageEnvironmentType: envId ? {
-      id: envId,
-      name: mockData.broadcastMessageEnvironmentTypes.find(e => e.id === envId)?.name || 'Unknown'
-    } : null,
-    broadcastMessagePriority: priorityId ? {
-      id: priorityId,
-      name: mockData.broadcastMessagePriorities.find(p => p.id === priorityId)?.name || 'Unknown'
-    } : null,
-    school: sId ? {
-      id: sId,
-      name: data.schoolName || `School #${sId}`
-    } : null,
+    broadcastMessageType: typeId
+      ? {
+          id: typeId,
+          name: mockData.broadcastMessageTypes.find(t => t.id === typeId)?.name || 'Unknown',
+        }
+      : null,
+    broadcastMessageEnvironmentType: envId
+      ? {
+          id: envId,
+          name:
+            mockData.broadcastMessageEnvironmentTypes.find(e => e.id === envId)?.name || 'Unknown',
+        }
+      : null,
+    broadcastMessagePriority: priorityId
+      ? {
+          id: priorityId,
+          name:
+            mockData.broadcastMessagePriorities.find(p => p.id === priorityId)?.name || 'Unknown',
+        }
+      : null,
+    school: sId
+      ? {
+          id: sId,
+          name: data.schoolName || `School #${sId}`,
+        }
+      : null,
   };
 };
 
-const toFormData = (data) => {
+const toFormData = data => {
   const formData = new FormData();
   for (const key in data) {
     if (
@@ -138,7 +151,7 @@ const toFormData = (data) => {
 export const BroadcastMessageClient = {
   // getMessages: () => api.get('/broadcast-messages'),
   getMessages: async () => {
-    if (!env.useMock) {
+    if (env.useMock) {
       return api.get('/broadcast-messages');
     }
     await sleep(RandomInt(200, 500));
@@ -147,7 +160,7 @@ export const BroadcastMessageClient = {
 
   // getMessageById: id => api.get(`/broadcast-messages/${id}`),
   getMessageById: async id => {
-    if (!env.useMock) {
+    if (env.useMock) {
       return api.get(`/broadcast-messages/${id}`);
     }
     await sleep(RandomInt(200, 500));
@@ -157,10 +170,10 @@ export const BroadcastMessageClient = {
 
   // createMessage: data => api.post('/broadcast-messages', data),
   createMessage: async data => {
-    if (!env.useMock) {
+    if (env.useMock) {
       return api.post('/broadcast-messages', toFormData(data), {
         headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 120000
+        timeout: 120000,
       });
     }
     await sleep(RandomInt(300, 600));
@@ -171,10 +184,10 @@ export const BroadcastMessageClient = {
 
   // updateMessage: (id, data) => api.put(`/broadcast-messages/${id}`, data),
   updateMessage: async (id, data) => {
-    if (!env.useMock) {
+    if (env.useMock) {
       return api.put(`/broadcast-messages/${id}`, toFormData(data), {
         headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 120000
+        timeout: 120000,
       });
     }
     await sleep(RandomInt(300, 600));
@@ -188,7 +201,7 @@ export const BroadcastMessageClient = {
 
   // deleteMessage: id => api.delete(`/broadcast-messages/${id}`),
   deleteMessage: async id => {
-    if (!env.useMock) {
+    if (env.useMock) {
       return api.delete(`/broadcast-messages/${id}`);
     }
     await sleep(RandomInt(200, 400));
@@ -201,7 +214,7 @@ export const BroadcastMessageClient = {
 
   // getTypes: () => api.get('/broadcast-catalogs/types'),
   getTypes: async () => {
-    if (!env.useMock) {
+    if (env.useMock) {
       return api.get('/broadcast-catalogs/types');
     }
     await sleep(RandomInt(100, 300));
@@ -210,7 +223,7 @@ export const BroadcastMessageClient = {
 
   // getPriorities: () => api.get('/broadcast-catalogs/priorities'),
   getPriorities: async () => {
-    if (!env.useMock) {
+    if (env.useMock) {
       return api.get('/broadcast-catalogs/priorities');
     }
     await sleep(RandomInt(100, 300));
@@ -219,17 +232,16 @@ export const BroadcastMessageClient = {
 
   // getEnvironmentTypes: () => api.get('/broadcast-catalogs/environments'),
   getEnvironmentTypes: async () => {
-    if (!env.useMock) {
+    if (env.useMock) {
       return api.get('/broadcast-catalogs/environments');
     }
     await sleep(RandomInt(100, 300));
     return { data: mockData.broadcastMessageEnvironmentTypes };
   },
 
-
   // getBySchoolId: schoolId => api.get(`/broadcast-messages/bySchool/${schoolId}`),
-  getBySchoolId: async (schoolId) => {
-    if (!env.useMock) {
+  getBySchoolId: async schoolId => {
+    if (env.useMock) {
       const filter = `schoolId:equals:${schoolId}`;
       return api.get(`/broadcast-messages?where=${filter}`);
     }

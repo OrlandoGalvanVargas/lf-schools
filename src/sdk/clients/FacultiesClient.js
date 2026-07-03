@@ -266,25 +266,27 @@ const enrichUiToApi = uiData => {
 ============================================================ */
 export const FacultiesClient = {
   getFacultyRoleTypes: () =>
-    env.useMock ? mockFacultiesClient.getFacultyRoleTypes() : facultiesClient.getFacultyRoleTypes(),
+    !env.useMock
+      ? mockFacultiesClient.getFacultyRoleTypes()
+      : facultiesClient.getFacultyRoleTypes(),
   getFaculties: () =>
-    env.useMock ? mockFacultiesClient.getFaculties() : facultiesClient.getFaculties(),
+    !env.useMock ? mockFacultiesClient.getFaculties() : facultiesClient.getFaculties(),
   getFacultyById: id =>
-    env.useMock ? mockFacultiesClient.getFacultyById(id) : facultiesClient.getFacultyById(id),
+    !env.useMock ? mockFacultiesClient.getFacultyById(id) : facultiesClient.getFacultyById(id),
   getBySchoolId: schoolId =>
-    env.useMock
+    !env.useMock
       ? mockFacultiesClient.getBySchoolId(schoolId)
       : facultiesClient.getBySchoolId(schoolId),
   getByDistrictId: districtId =>
-    env.useMock
+    !env.useMock
       ? mockFacultiesClient.getByDistrictId(districtId)
       : facultiesClient.getByDistrictId(districtId),
   createFaculty: data =>
-    env.useMock ? mockFacultiesClient.createFaculty(data) : facultiesClient.createFaculty(data),
+    !env.useMock ? mockFacultiesClient.createFaculty(data) : facultiesClient.createFaculty(data),
   updateFaculty: (id, data) =>
-    env.useMock
+    !env.useMock
       ? mockFacultiesClient.updateFaculty(id, data)
       : facultiesClient.updateFaculty(id, data),
   deleteFaculty: id =>
-    env.useMock ? mockFacultiesClient.deleteFaculty(id) : facultiesClient.deleteFaculty(id),
+    !env.useMock ? mockFacultiesClient.deleteFaculty(id) : facultiesClient.deleteFaculty(id),
 };
