@@ -1,0 +1,1 @@
+export { HandleInternalCrud } from './HandleInternalCrud';

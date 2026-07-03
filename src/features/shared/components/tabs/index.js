@@ -1,0 +1,1 @@
+export { BaseTabs } from './BaseTabs';
